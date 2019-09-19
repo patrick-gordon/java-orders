@@ -1,14 +1,18 @@
 package com.lambdaschool.crudorders.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agents")
 public class Agents {
 
+    @Id
     @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long agentcode;
 
     private String agentname;
@@ -20,6 +24,10 @@ public class Agents {
     private String phone;
 
     private String country;
+
+    @OneToMany(mappedBy = "agent")
+    @JsonIgnoreProperties("agent")
+    private List<Customers> customer = new ArrayList<>();
 
     public Agents() {
     }
